@@ -22,8 +22,8 @@ This program connects to a SQL Server database to manage a Music table. It provi
 The program connects to:
 - **Server**: localhost
 - **Database**: organiste  
-- **Username**: admin
-- **Password**: Fre2611%01
+- **Username**: user 
+- **Password**: password
 
 ### Music Table Structure
 ```sql
