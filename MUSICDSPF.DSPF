@@ -1,0 +1,74 @@
+     A*%%TS RD  20260110  113000  ADMIN      REL-V7R1M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CA03(03 'Exit')
+     A                                      PRINT
+     A          R SFL                       SFL
+     A*%%TS RD  20260110  113000  ADMIN      REL-V7R1M0  5770-WDS
+     A            SFLOPTION   1A  B 11  2VALUES(' ' '2' '4' '5' '9')
+     A                                      DSPATR(UL)
+     A            SFLSONGID   4S 0O 11  5EDTCDE(Z)
+     A            SFLSONGNAME 50A O 11 10
+     A            SFLAUTHOR   30A O 11 62
+     A          R SFLCTL                    SFLCTL(SFL)
+     A*%%TS RD  20260110  113000  ADMIN      REL-V7R1M0  5770-WDS
+     A                                      SFLSIZ(999)
+     A                                      SFLPAG(14)
+     A            MSGCTL     78A  O 24  2DSPATR(CS)
+     A                                      DSPATR(BL)
+     A            SFLDSP                    DSPATR(N64)
+     A            SFLDSPCTL                 DSPATR(N64)
+     A                                      CF05(05 'Refresh')
+     A                                      CF06(06 'Add')
+     A                                      CF12(12 'Cancel')
+     A            DATE        6Y 0O  1 73DATE
+     A                                      EDTCDE(Y)
+     A            TIME        6S 0O  1 57TIME
+     A                                      EDTCDE(X)
+     A            USER       10A  O  1  2DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                      1 20'MUSIC ORGANIZER'
+     A                                      DSPATR(HI)
+     A                      2 20'Database: localhost/organiste'
+     A                                      DSPATR(UL)
+     A                      5  2'Type options, press Enter.'
+     A                      6  2'  2=Change   4=Delete   5=Display   9=New'
+     A                                      DSPATR(HI)
+     A                      9  2'Opt'
+     A                                      DSPATR(UL)
+     A                      9  5'Song ID'
+     A                                      DSPATR(UL)
+     A                      9 10'Song Name'
+     A                                      DSPATR(UL)
+     A                      9 62'Author'
+     A                                      DSPATR(UL)
+     A                     23  2'F5=Refresh   F6=Add   F12=Cancel   Enter=Process'
+     A                                      DSPATR(HI)
+     A          R SFLFOOTER
+     A                     24  2'F3=Exit'
+     A                                      DSPATR(HI)
+     A          R MUSICDETAIL
+     A*%%TS RD  20260110  113000  ADMIN      REL-V7R1M0  5770-WDS
+     A                                      OVERLAY
+     A            MSG        78A  O 24  2DSPATR(CS)
+     A                                      DSPATR(BL)
+     A                                      DSPATR(N64)
+     A            SONGID      4S 0B 10  8DSPATR(UL)
+     A                                      DSPATR(PC)
+     A            SONGNAME  200A  B 12  8DSPATR(UL)
+     A            SONGDESC  500A  B 14  8DSPATR(UL)
+     A            SONGCAT   100A  B 16  8DSPATR(UL)
+     A            SONGLINK  500A  B 18  8DSPATR(UL)
+     A            SONGAUTH  200A  B 20  8DSPATR(UL)
+     A            CREATEDBY 100A  B 22  8DSPATR(UL)
+     A                      8  2'Music Song Details'
+     A                                      DSPATR(HI)
+     A                     10  2'Song ID  . . .'
+     A                     12  2'Song Name . . .'
+     A                     14  2'Description. . .'
+     A                     16  2'Category . . . .'
+     A                     18  2'Link . . . . . .'
+     A                     20  2'Author . . . . .'
+     A                     22  2'Created By . . .'
+     A                     24  2'F3=Exit   F12=Cancel   Enter=Save'
+     A                                      DSPATR(HI)
