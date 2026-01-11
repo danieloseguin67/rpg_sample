@@ -1,0 +1,97 @@
+flowchart TD
+    START([START]) --> INIT[Initialize Program]
+    INIT --> CONNECT[Connect to Database]
+    CONNECT --> CONN_CHK{Connection Successful?}
+    
+    CONN_CHK -->|Yes| LOAD[Load Music List from Database]
+    CONN_CHK -->|No| ERR_MSG[Display Error Message]
+    
+    LOAD --> DISPLAY[Display Subfile Screen]
+    ERR_MSG --> DISPLAY
+    
+    DISPLAY --> INPUT[Wait for User Input]
+    INPUT --> KEY_CHK{Function Key or Option?}
+    
+    %% Function Key Processing
+    KEY_CHK -->|F3 Exit| EXIT_FLAG[Set Exit Flag]
+    KEY_CHK -->|F5 Refresh| REFRESH[Refresh List]
+    KEY_CHK -->|F6 Add| ADD_NEW[Add New Song]
+    KEY_CHK -->|F12 Cancel| CANCEL[Cancel Operation]
+    KEY_CHK -->|Enter/Options| PROCESS[Process Options]
+    
+    REFRESH --> LOAD
+    CANCEL --> DISPLAY
+    
+    %% Add New Song Flow
+    ADD_NEW --> ADD_SCREEN[Display Detail Screen for New Song]
+    ADD_SCREEN --> ADD_ACTION{User Action?}
+    ADD_ACTION -->|F3/F12| ADD_CANCEL[Cancel Add]
+    ADD_ACTION -->|Enter| ADD_SAVE[Generate ID and Save to Database]
+    ADD_SAVE --> ADD_SUCCESS{Save Successful?}
+    ADD_SUCCESS -->|Yes| ADD_OK[Show Success and Refresh List]
+    ADD_SUCCESS -->|No| ADD_ERROR[Show Error Message]
+    ADD_OK --> LOAD
+    ADD_ERROR --> ADD_SCREEN
+    ADD_CANCEL --> DISPLAY
+    
+    %% Process Subfile Options
+    PROCESS --> OPTION_CHK{Which Option?}
+    OPTION_CHK -->|2 Change| EDIT[Edit Song]
+    OPTION_CHK -->|4 Delete| DELETE[Delete Song]
+    OPTION_CHK -->|5 Display| VIEW[Display Song Details]
+    OPTION_CHK -->|9 Add| ADD_NEW
+    OPTION_CHK -->|None/Continue| CHECK_EXIT
+    
+    %% Edit Song Flow
+    EDIT --> EDIT_LOAD[Load Song Details]
+    EDIT_LOAD --> EDIT_FOUND{Song Found?}
+    EDIT_FOUND -->|No| NOT_FOUND[Song Not Found]
+    EDIT_FOUND -->|Yes| EDIT_SCREEN[Display Detail Screen for Edit]
+    EDIT_SCREEN --> EDIT_ACTION{User Action?}
+    EDIT_ACTION -->|F3/F12| EDIT_CANCEL[Cancel Edit]
+    EDIT_ACTION -->|Enter| EDIT_SAVE[Update Database]
+    EDIT_SAVE --> EDIT_SUCCESS{Update Successful?}
+    EDIT_SUCCESS -->|Yes| EDIT_OK[Show Success and Refresh List]
+    EDIT_SUCCESS -->|No| EDIT_ERROR[Show Error Message]
+    EDIT_OK --> LOAD
+    EDIT_ERROR --> EDIT_SCREEN
+    EDIT_CANCEL --> DISPLAY
+    
+    %% Delete Song Flow
+    DELETE --> DEL_LOAD[Get Song Details]
+    DEL_LOAD --> DEL_FOUND{Song Found?}
+    DEL_FOUND -->|No| NOT_FOUND
+    DEL_FOUND -->|Yes| DEL_CONFIRM[Delete from Database]
+    DEL_CONFIRM --> DEL_SUCCESS{Delete Successful?}
+    DEL_SUCCESS -->|Yes| DEL_OK[Show Success and Refresh List]
+    DEL_SUCCESS -->|No| DEL_ERROR[Show Error Message]
+    DEL_OK --> LOAD
+    DEL_ERROR --> DISPLAY
+    
+    %% Display Song Flow
+    VIEW --> VIEW_LOAD[Load Song Details]
+    VIEW_LOAD --> VIEW_FOUND{Song Found?}
+    VIEW_FOUND -->|No| NOT_FOUND
+    VIEW_FOUND -->|Yes| VIEW_SCREEN[Display Details Read-Only]
+    VIEW_SCREEN --> VIEW_DONE[Press Enter to Return]
+    VIEW_DONE --> DISPLAY
+    
+    %% Exit Check and Cleanup
+    NOT_FOUND --> DISPLAY
+    EXIT_FLAG --> CHECK_EXIT
+    CHECK_EXIT{Exit Program?}
+    CHECK_EXIT -->|No| DISPLAY
+    CHECK_EXIT -->|Yes| DISCONNECT[Disconnect Database]
+    DISCONNECT --> END_PROG([END])
+    
+    %% Styling
+    classDef startEnd fill:#90EE90,stroke:#333,stroke-width:2px
+    classDef decision fill:#FFD700,stroke:#333,stroke-width:2px
+    classDef process fill:#87CEEB,stroke:#333,stroke-width:2px
+    classDef error fill:#FFB6C1,stroke:#333,stroke-width:2px
+    classDef database fill:#DDA0DD,stroke:#333,stroke-width:2px
+    
+    class START,END_PROG startEnd
+    class CONN_CHK,KEY_CHK,ADD_ACTION,ADD_SUCCESS,EDIT_FOUND,EDIT_ACTION,EDIT_SUCCESS,DEL_FOUND,DEL_SUCCESS,VIEW_FOUND,CHECK_EXIT decision
+    class LOAD,REFRESH,DEL_CONFIRM,EDIT_SAVE,ADD_SAVE database
+    class ERR_MSG,ADD_ERROR,EDIT_ERROR,DEL_ERROR,NOT_FOUND error

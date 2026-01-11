@@ -1,0 +1,39 @@
+# This file defines the "Song Detail" form for the application.
+# It is likely used to display or edit details about a song within the INFORMIX4GL environment.
+# Song Detail Form
+DATABASE organiste
+
+SCREEN
+{
+                    Song Detail Information
+
+Song ID.........: [songid    ]
+Song Name.......: [songname                                                    ]
+                  [                                                            ]
+Description.....: [songdesc                                                    ]
+                  [                                                            ]
+                  [                                                            ]
+Category........: [songcat                                                     ]
+Link............: [songlink                                                    ]
+                  [                                                            ]
+Author..........: [songauth                                                    ]
+Created By......: [createdby                                                   ]
+Created Date....: [createddate]
+
+ESC=Cancel  CTRL-W=Save
+}
+END
+
+ATTRIBUTES
+songid = m_curr_rec.songid, AUTONEXT;
+songname = m_curr_rec.songname;
+songdesc = m_curr_rec.songdesc, WORDWRAP;
+songcat = m_curr_rec.songcat;
+songlink = m_curr_rec.songlink, WORDWRAP;
+songauth = m_curr_rec.songauth;
+createdby = m_curr_rec.createdby, NOENTRY;
+createddate = m_curr_rec.createddate, NOENTRY, FORMAT = "mm/dd/yyyy";
+
+INSTRUCTIONS
+SCREEN RECORD detailscreen
+END

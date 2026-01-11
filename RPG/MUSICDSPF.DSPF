@@ -1,3 +1,6 @@
+     A* This display file (DSPF) source member contains screen definitions for an RPG application.
+     A* The timestamp (%%TS) indicates the last modification was made on January 10, 2026, at 11:30:00 by user ADMIN.
+     A* The source was created or last modified for IBM i release V7R1M0 using product 5770-WDS.
      A*%%TS RD  20260110  113000  ADMIN      REL-V7R1M0  5770-WDS
      A*%%EC
      A                                      DSPSIZ(24 80 *DS3)
